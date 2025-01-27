@@ -2,6 +2,7 @@
 
 import { Form } from "@/components/ui/form"
 import { CiImageOn } from "react-icons/ci";
+import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { BsPersonBoundingBox } from "react-icons/bs";
 
@@ -23,12 +24,14 @@ import { Input } from "@/components/ui/input"
 
 const formSchema = z.object({
   profileName: z.string().min(2, {
-    message: "Project name must be at least 2 characters.",
+    message: "Profile name must be at least 2 characters.",
   }),
-  projectDescription: z.string(),
-  projectTechnologies: z.string().array(),
-  projectUrl: z.string().url(),
-
+  tagLine: z.string().min(2,{
+    message: "Tag line must be at list 2 characters",
+  }),
+  aboutMe: z.string().optional(),
+  address: z.string().optional(),
+  
 })
 
 
@@ -41,21 +44,24 @@ export default function ProfileForm() {
   })
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">  
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 grid grid-flow-col grid-rows-6 gap-3">
+      
+        <div>  
         <Avatar>
           <AvatarImage src="" />
           <AvatarFallback><BsPersonBoundingBox />
           </AvatarFallback>
         </Avatar>
         <Button type="submit">Upload Image</Button>
+        </div>
         <FormField
           control={form.control}
           name="profileName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Project Name</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="Profile Name" {...field} />
               </FormControl>
               <FormDescription>
                 This is your public display name.
@@ -64,9 +70,49 @@ export default function ProfileForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <FormField
+          control={form.control}
+          name="tagLine"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Tagline</FormLabel>
+              <FormControl>
+                <Input placeholder="Full-Stack Developer / UI/UX Designer" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="aboutMe"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>About Me</FormLabel>
+              <FormControl>
+              <Textarea placeholder="Type about yourself here."/>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="address"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Address</FormLabel>
+              <FormControl>
+              <Textarea placeholder="Type your address here"/>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Upload Resume</Button>
       </form>
     </Form>
+    
   )
 
 }
