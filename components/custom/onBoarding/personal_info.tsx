@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input"
 
 
 const formSchema = z.object({
-  projectName: z.string().min(2, {
+  profileName: z.string().min(2, {
     message: "Project name must be at least 2 characters.",
   }),
   projectDescription: z.string(),
@@ -34,7 +34,7 @@ const formSchema = z.object({
 
 
 export default function ProfileForm() {
-  // 1. Define your form.
+  
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema)
@@ -50,7 +50,7 @@ export default function ProfileForm() {
         <Button type="submit">Upload Image</Button>
         <FormField
           control={form.control}
-          name="projectName"
+          name="profileName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Project Name</FormLabel>
