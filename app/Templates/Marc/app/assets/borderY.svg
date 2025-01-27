@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 293.45 1" fill="none">
+  <defs>
+    <style>
+      .solid_line_two {
+        stroke: #e6e6e5;
+        stroke-miterlimit: 10;
+      }
+      .dashed_line_two {
+        stroke: #e6e6e5;
+        stroke-miterlimit: 10;
+        stroke-dasharray: 6.12 6.12;
+      }
+    </style>
+  </defs>
+  <line class="solid_line_two" x1="293.45" y1="0.5" x2="290.45" y2="0.5"/>
+  <line class="dashed_line_two" x1="284.34" y1="0.5" x2="6.06" y2="0.5"/>
+  <line class="solid_line_two" x1="3" y1="0.5" x2="3" y2="0.5"/>
+</svg>
