@@ -42,7 +42,7 @@ export default function RootLayout({
     
       <ClerkProvider>
         <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased w-full h-screen`}>
+        <body className={`${geistSans.variable} ${geistMono.variable}  antialiased w-full h-screen`}>
           <Navbar/>
             
             {children}

@@ -34,17 +34,37 @@ import { Card, CardContent,CardDescription,CardHeader,CardTitle } from "@/compon
   
 export default function homepage(){
 return(
-<div className="flex flex-wrap justify-center  gap-4 w-full h-full ">
+<div className="grid container mx-auto px-4 sm:px-6 lg:px-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  
  {portfolios.map((data,index)=>(
-    <Card  key={index} className="h-80 w-96 ">
-            <img  className="object-cover rounded-xl max-h-48 w-full " src={data.image} alt="" />
-        <CardTitle className="m-3">
-            {data.name}
-        </CardTitle>
-        <CardDescription className="mx-3">
-            {data.description}
-        </CardDescription>
-    </Card>
+    // <Card  key={index} className="h-80 w-96 ">
+    //         <img  className="object-cover rounded-xl max-h-48 w-full " src={data.image} alt="" />
+    //     <CardTitle className="m-3">
+    //         {data.name}
+    //     </CardTitle>
+    //     <CardDescription className="mx-3">
+    //         {data.description}
+    //     </CardDescription>
+    // </Card>
+    <Card key={index} className="h-80 w-96 group relative">
+    <div className="relative">
+        <img className="object-cover rounded-xl max-h-48 w-full" src={data.image} alt="" />
+        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity flex items-center justify-center">
+            <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all">
+                <button className="px-4 py-2 bg-white text-gray-900 rounded-lg font-medium">
+                    Preview
+                </button>
+            </div>
+        </div>
+    </div>
+    <CardTitle className="m-3">
+        {data.name}
+    </CardTitle>
+    <CardDescription className="mx-3">
+        {data.description}
+    </CardDescription>
+</Card>
+
  ))}
 </div >
 
