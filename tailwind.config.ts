@@ -10,6 +10,9 @@ export default {
   theme: {
   	extend: {
   		colors: {
+			mainGreen: "#CAEBD3",
+			mainGray: "#E6E6E6",
+		 
   			'custom-primary': '#2970FF',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

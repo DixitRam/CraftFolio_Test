@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+details summary::-webkit-details-marker {
+  display:none;
+}
+
+.leftBorder, .rightBorder {
+  background-image: url(./assets/borderX.svg);
+  background-repeat: repeat-y;
+  background-size: 3px;
+}
+
+.topBorder {
+  background-image: url(./assets/borderY.svg);
+  background-repeat: repeat-x;
+}
+
+.corners {
+  background-image: url(./assets/corners.svg);
+  background-repeat: no-repeat;
+}
+
+.topcorners {
+  background-image: url(./assets/cornersHalf.svg);
+  background-repeat: no-repeat;
+}
+
