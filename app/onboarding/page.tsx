@@ -1,9 +1,11 @@
 import ProfileForm from "@/components/custom/onBoarding/personal_info"
 
-export default function onboarding(){
+export default function onboarding() {
   return (
-<div className="border-2 border-red-300 h-[500px] w-1/2">
-<ProfileForm />
+    <div className="flex justify-center">
+      <div className=" h-auto w-1/2 p-8">
+        <ProfileForm />
+      </div>
     </div>
   )
 }

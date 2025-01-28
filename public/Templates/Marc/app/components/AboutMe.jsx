@@ -1,6 +1,10 @@
 import Image from "next/image";
 import ProfilePicture from "../assets/Marc-Ruizenaar-Front-end-Developer.jpg";
 
+Const About =[
+  
+]
+
 export default function AboutMe() {
   return (
     <section

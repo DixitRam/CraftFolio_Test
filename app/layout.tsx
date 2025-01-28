@@ -40,10 +40,10 @@ export default function RootLayout({
     //   </body>
     // </html>
     
-      <ClerkProvider>
+    <ClerkProvider>
         <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable}  antialiased w-full h-screen`}>
-          <Navbar/>
+        <Navbar/>
             
             {children}
           </body>

@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input"
 
 
 
-const formSchema = z.object({
+const profile_form_schema = z.object({
   profileName: z.string().min(2, {
     message: "Profile name must be at least 2 characters.",
   }),
@@ -39,24 +39,24 @@ const formSchema = z.object({
 export default function ProfileForm() {
   
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema)
+  const profile_form = useForm<z.infer<typeof profile_form_schema>>({
+    resolver: zodResolver(profile_form_schema)
   })
   return (
     
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 grid grid-flow-col grid-rows-6 gap-3">
+    <Form {...profile_form}>
+      <form onSubmit={profile_form.handleSubmit(onSubmit)} className="grid p-6 rounded-md grid-flow-col grid-rows-6 gap-2 border-2 border-gray-300 h-auto min-w-72">
       
-        <div>  
-        <Avatar>
-          <AvatarImage src="" />
+        <div className="display flex gap-x-7 items-center">  
+        <Avatar className="h-16 w-16">
+          <AvatarImage/>
           <AvatarFallback><BsPersonBoundingBox />
           </AvatarFallback>
         </Avatar>
-        <Button type="submit">Upload Image</Button>
+        <Button type="submit" className="p-">Upload Image</Button>
         </div>
         <FormField
-          control={form.control}
+          control={profile_form.control}
           name="profileName"
           render={({ field }) => (
             <FormItem>
@@ -66,13 +66,15 @@ export default function ProfileForm() {
               </FormControl>
               <FormDescription>
                 This is your public display name.
+
+
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         <FormField
-          control={form.control}
+          control={profile_form.control}
           name="tagLine"
           render={({ field }) => (
             <FormItem>
@@ -85,26 +87,26 @@ export default function ProfileForm() {
           )}
         />
         <FormField
-          control={form.control}
+          control={profile_form.control}
           name="aboutMe"
           render={({ field }) => (
             <FormItem>
               <FormLabel>About Me</FormLabel>
               <FormControl>
-              <Textarea placeholder="Type about yourself here."/>
+              <Textarea placeholder="Type about yourself here." {...field}/>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         <FormField
-          control={form.control}
+          control={profile_form.control}
           name="address"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Address</FormLabel>
               <FormControl>
-              <Textarea placeholder="Type your address here"/>
+              <Textarea placeholder="Type your address here" {...field}/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -119,7 +121,7 @@ export default function ProfileForm() {
 }
 
 // 2. Define a submit handler.
-function onSubmit(values: z.infer<typeof formSchema>) {
+function onSubmit(values: z.infer<typeof profile_form_schema>) {
   // Do something with the form values.
   // ✅ This will be type-safe and validated.
   console.log(values)
