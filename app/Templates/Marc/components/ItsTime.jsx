@@ -1,7 +1,7 @@
 import Image from "next/image";
 import BackgroundImage from "../assets/backgroundImage.jpg";
 
-export default function ItsTime() {
+export default function ItsTime({email}) {
   return (
     <section data-aos="fade-in" className="z-20 relative flex h-[200px] flex-col mt-10 items-center justify-center gap-5 overflow-hidden">
       <Image
@@ -15,14 +15,9 @@ export default function ItsTime() {
 
       <p className="text-4xl font-bold text-white">Let&rsquo;s connect!</p>
       <div className="flex gap-4">
-        <a
-          href="mailto:info@marcruizenaar.com"
-          className="rounded border-[1px] border-white px-4 py-2 text-white"
-        >
-          Send a email
-        </a>
-        <a
-          href="tel:+31628672650"
+
+      
+      <a href={`mailto:${email}`}
           className="rounded border-[1px] border-white px-4 py-2 flex items-center gap-3 text-white"
         >
           <span className="relative flex h-3 w-3">

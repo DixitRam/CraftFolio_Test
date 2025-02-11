@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
-import ProfilePicture from "../assets/Marc-Ruizenaar-Front-end-Developer.jpg";
+// import ProfilePicture from "../assets/Marc-Ruizenaar-Front-end-Developer.jpg";
 import { useEffect, useRef } from "react";
 
-export default function Header() {
+export default function Header({ProfilePicture,email}) {
   const hamburgerMenuRef = useRef(null);
+
 
   useEffect(() => {
     const hamburgerMenu = hamburgerMenuRef.current;
@@ -25,6 +26,7 @@ export default function Header() {
   }, []);
 
   return (
+    
     <header className="relative flex items-center justify-between py-4 md:mt-4 p-5">
       <div className="topBorder absolute left-0 top-0 hidden h-[0.2rem] w-full md:block"></div>
       <div className="topcorners absolute left-[-2px] top-[-3px] z-10 hidden h-5 w-5 md:block"></div>
@@ -34,7 +36,7 @@ export default function Header() {
 
       <div className="flex w-full items-center justify-between gap-6 md:justify-normal md:pl-6">
         <Image
-          src={ProfilePicture}
+          src={(ProfilePicture)}
           height={50}
           width={50}
           alt=""
@@ -78,7 +80,8 @@ export default function Header() {
       </div>
 
       <div className="hidden items-center gap-6 text-nowrap pr-6 md:flex">
-        <a href="tel:+31628672650" className="flex items-center gap-3">
+        <a href={`mailto:${email}`} className="flex items-center gap-3">
+
           <span className="relative flex h-3 w-3">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
             <span className="relative inline-flex h-3 w-3 rounded-full bg-green-600"></span>

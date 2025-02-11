@@ -1,0 +1,123 @@
+{
+    "users": [
+        {
+            "username": "james123",
+            "template": "Marc",
+            "name": "James Anderson",
+            "profile_picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "location": "San Francisco, California, USA",
+            "cvURL" : "https://drive.google.com/file/d/1e7HJZZn6QVpmINveHaW21iVmJpxJlWs7/view?usp=sharing",
+            "contact": {
+                "email": "james.anderson@email.com",
+                "linkedin": "https://linkedin.com/in/jamesanderson",
+                "github": "https://github.com/jamesanderson"
+            },
+            "profile_summary": "Passionate Full Stack Developer with over 5 years of experience in web and mobile app development.",
+            "tagline": "Building seamless digital experiences, one line of code at a time.",
+            "about_me": "Hi, I'm James Anderson, a passionate full-stack developer with a strong background in building high-performance web and mobile applications. With expertise in JavaScript, Python, and Flutter, I love creating user-friendly digital experiences. I specialize in backend optimizations and cloud deployments, ensuring scalable and efficient solutions. When I’m not coding, you’ll find me exploring the latest tech trends, contributing to open-source projects, or enjoying a good coffee in San Francisco.",
+            "skills": {
+                "languages": ["JavaScript", "Python", "Kotlin", "Java"],
+                "frameworks_libraries": ["React.js", "Node.js", "Flutter", "Django"],
+                "databases": ["PostgreSQL", "MongoDB"],
+                "version_control": ["Git", "GitHub"],
+                "devops_tools": ["Docker", "AWS"]
+            },
+            "projects": [
+                {
+                    "name": "Marc",
+                    "description": "A mobile app for managing expenses and tracking budgets.",
+                    "technologies": ["Flutter", "Firebase"],
+                    "project_url": "https://github.com/jamesanderson/financepal",
+                    "thumbnail": [
+                        "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&h=600&fit=crop"
+                    ]
+                },
+                {
+                    "name": "ShopMate",
+                    "description": "A full-stack e-commerce platform with React and Node.js.",
+                    "technologies": ["React.js", "Node.js", "MongoDB"],
+                    "project_url": "https://github.com/jamesanderson/shopmate",
+                    "thumbnail": [
+                        "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&h=600&fit=crop"
+                    ]
+                }
+            ],
+            "education": [
+                {
+                    "institution": "Stanford University",
+                    "degree": "Master of Science in Computer Science",
+                    "description": "Focused on software engineering, cloud computing, and AI-driven applications.",
+                    "date": "September 2015 - June 2017"
+                }
+            ],
+            "experience": [
+                {
+                    "company": "Google",
+                    "role": "Senior Software Engineer",
+                    "description": "Developed scalable cloud applications and optimized backend systems.",
+                    "date": "July 2017 - Present"
+                }
+            ]
+        },
+        {
+            "username": "sophia",
+            "template": "marc2",
+            "name": "Sophia Carter",
+            "profile_picture": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=faces",
+            "location": "London, UK",
+            "cvURL" : "https://drive.google.com/file/d/1e7HJZZn6QVpmINveHaW21iVmJpxJlWs7/view?usp=sharing",
+
+            "contact": {
+                "email": "sophia.carter@email.com",
+                "linkedin": "https://linkedin.com/in/sophiacarter",
+                "github": "https://github.com/sophiacarter"
+            },
+            "profile_summary": "Software Engineer specializing in backend development and DevOps.",
+            "tagline": "Optimizing systems, automating workflows, and scaling the future.",
+            "about_me": "Hello! I'm Sophia Carter, a software engineer with a deep passion for backend development and DevOps. I specialize in designing scalable architectures, automating processes, and optimizing system performance. My expertise includes Python, Go, Kubernetes, and cloud infrastructure management. I'm always looking for ways to improve efficiency and build resilient systems. In my free time, I enjoy contributing to open-source projects, mentoring aspiring developers, and traveling to explore new cultures.",
+            "skills": {
+                "languages": ["Python", "Go", "JavaScript", "Bash"],
+                "frameworks_libraries": ["Django", "Flask", "Node.js"],
+                "databases": ["MySQL", "Redis", "Elasticsearch"],
+                "version_control": ["Git", "GitHub", "Bitbucket"],
+                "devops_tools": ["Docker", "Kubernetes", "Jenkins"]
+            },
+            "projects": [
+                {
+                    "name": "DevOps Dashboard",
+                    "description": "A monitoring tool for managing server performance metrics.",
+                    "technologies": ["Go", "Docker", "Grafana"],
+                    "project_url": "https://github.com/sophiacarter/devops-dashboard",
+                    "thumbnail": [
+                        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop"
+                    ]
+                },
+                {
+                    "name": "AI Chatbot",
+                    "description": "A chatbot using NLP for customer support automation.",
+                    "technologies": ["Python", "TensorFlow", "Flask"],
+                    "project_url": "https://github.com/sophiacarter/ai-chatbot",
+                    "thumbnail": [
+                        "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&h=600&fit=crop"
+                    ]
+                }
+            ],
+            "education": [
+                {
+                    "institution": "University of Oxford",
+                    "degree": "Bachelor of Science in Computer Science",
+                    "description": "Specialized in backend systems, distributed computing, and cybersecurity.",
+                    "date": "September 2012 - June 2016"
+                }
+            ],
+            "experience": [
+                {
+                    "company": "Amazon",
+                    "role": "Software Engineer",
+                    "description": "Developed and optimized backend services for large-scale distributed systems.",
+                    "date": "August 2016 - Present"
+                }
+            ]
+        }
+    ]
+}

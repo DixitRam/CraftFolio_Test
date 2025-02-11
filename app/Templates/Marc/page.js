@@ -7,31 +7,35 @@ import ItsTime from "./components/ItsTime";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useEffect } from "react";
 
-export default function Home() {
+export default function Home({userDetails}) {
+  const user = userDetails;
+  console.log(userDetails)
+
   useEffect(() => {
+    AOS.init({ duration: 1200 });
   });
-  
   return (
     <>
       <div className="border_div container relative mx-auto bg-white px-5 md:px-0 ">
         <div className="leftBorder absolute left-0 top-0 hidden h-full w-[0.2rem] md:block"></div>
         <div className="rightBorder absolute right-0 top-0 hidden h-full w-[0.2rem] md:block"></div>
-        <Header />
+        <Header ProfilePicture={user.profile_picture} email={user.contact.email} />
         <main>
-          <JumboHeader />
+        <JumboHeader Tagline={user.tagline} email={user.contact.email}/>
 
-          <AboutMe />
+        <AboutMe  ProfilePicture={user.profile_picture} Name={user.name} AboutMe={user.about_me}/>
 
-          <Projects />
+        <Projects userProjects={user.projects} githubURL={user.contact.github}/>
 
-          <MyExperience />
+          <MyExperience userExperiences={user.experience} userEducation={user.education} userCV={user.cvURL} userLinkedin={user.contact.linkedin} />
         </main>
       </div>
-      <ItsTime />
+      <ItsTime email={user.contact.email}/>
 
-      <Footer />
     </>
   );
 }
