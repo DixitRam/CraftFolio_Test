@@ -56,7 +56,7 @@ export default function MyExperience({userExperiences ,userEducation,userLinkedi
 {
   userEducation.map((education,index)=>(
     <>
-     <h4 className="font-bold">
+     <h4 key={index} className="font-bold">
               {education.institution}
               <br/>
               <span className="pl-2 font-normal">
