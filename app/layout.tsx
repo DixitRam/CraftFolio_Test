@@ -31,14 +31,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // <html lang="en">
-    //   <body
-    //     className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen h-screen`}
-    //     >
-    //       <Navbar/>          
-    //     {children}
-    //   </body>
-    // </html>
     
       <ClerkProvider>
         <html lang="en">

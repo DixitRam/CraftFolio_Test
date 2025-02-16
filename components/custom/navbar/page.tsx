@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs"
 import { Outfit } from 'next/font/google'
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useParams, usePathname } from "next/navigation"
 import clsx from "clsx";
 import link from "next/link"
 
@@ -12,7 +12,13 @@ const logoFont = Outfit({
     subsets: ['latin'] })
 
 export default  function Navbar() {
+  const param = useParams();
   const pathName = usePathname();
+
+    if(param?.username){
+      console.log("NAvbar Should Be Hiiden")
+      return <></>
+    }
     return (
         <>
         <nav className="bg-white flex md:flex-row justify-between border-b-2 items-center h-16 px-4 mb-8">

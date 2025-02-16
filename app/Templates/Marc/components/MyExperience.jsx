@@ -12,7 +12,6 @@ export default function MyExperience({userExperiences ,userEducation,userLinkedi
             <div className="corners absolute bottom-[-5px] left-0 z-10 h-4 w-4"></div>
             <div className="corners absolute bottom-[-6px] right-0 z-10 h-4 w-4 rotate-180"></div>
           </div>
-    {/* //XXXXXXXXXXXXXXXXXXXXXXXx */}
 
     {userExperiences.map((experience,index)=>(
       < >

@@ -8,9 +8,9 @@
             "location": "San Francisco, California, USA",
             "cvURL" : "https://drive.google.com/file/d/1e7HJZZn6QVpmINveHaW21iVmJpxJlWs7/view?usp=sharing",
             "contact": {
-                "email": "james.anderson@email.com",
-                "linkedin": "https://linkedin.com/in/jamesanderson",
-                "github": "https://github.com/jamesanderson"
+                    "email": "james.anderson@email.com",
+                    "linkedin": "https://linkedin.com/in/jamesanderson",
+                    "github": "https://github.com/jamesanderson"
             },
             "profile_summary": "Passionate Full Stack Developer with over 5 years of experience in web and mobile app development.",
             "tagline": "Building seamless digital experiences, one line of code at a time.",
