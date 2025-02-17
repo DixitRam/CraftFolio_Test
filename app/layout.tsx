@@ -9,7 +9,7 @@ import {
   UserButton
 } from '@clerk/nextjs'
 
-import Navbar from "@/components/custom/navbar/page";
+import Navbar from "@/components/custom/navbar";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
