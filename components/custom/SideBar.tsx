@@ -36,7 +36,7 @@ export default function SideBar({ activeItem, setActiveItem }: SideBarProps) {
             className={clsx(
               'w-full text-left px-4 py-2 rounded-lg transition-colors',
               {
-                'bg-blue-100 text-blue-600': activeItem === item.id,
+                'bg-blue-100 text-custom-primary': activeItem === item.id,
                 'text-gray-700 hover:bg-gray-100': activeItem !== item.id,
               }
             )}

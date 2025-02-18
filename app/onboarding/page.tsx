@@ -14,7 +14,7 @@ export default function onboarding(){
       <SideBar activeItem={activeItem} setActiveItem={setActiveItem} />
       
       <div className="flex-1 p-4 overflow-y-auto">
-        <div className="border-2 border-red-500 rounded-lg p-6 shadow-sm">
+        <div className="border-2 border-custom-primary rounded-lg p-6 shadow-sm">
           {activeItem === 'ProfileForm' && <ProfileForm />}
           {activeItem === 'ProjectForm' && <ProjectForm />}
           {activeItem === 'ExperienceForm' && <ExperienceForm />}

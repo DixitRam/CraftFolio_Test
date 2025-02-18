@@ -27,29 +27,62 @@ const formSchema = z.object({
     message: "Profile name must be at least 2 characters.",
   }),
   location: z.string().optional(),
-  cvURL: z.string().url(),
-  email : z.string().email(),
-  linkedin : z.string().url(),
-  github: z.string().url(),
-  profile_summary :z.string().optional(),
-  tagLine: z.string().min(2,{
-    message: "Tag line must be at list 2 characters",
+  cvURL: z.string().url({
+    message: "Please enter a valid URL",
   }),
-  aboutMe: z.string().optional(),
-  skill: z.string().optional()
-  
+  email: z.string().email({
+    message: "Please enter a valid email address",
+  }),
+  linkedin: z.string().url({
+    message: "Please enter a valid LinkedIn URL",
+  }),
+  github: z.string().url({
+    message: "Please enter a valid GitHub URL",
+  }),
+  profile_summary: z.string().optional(),
+  tagLine: z.string().min(2, {
+    message: "Tag line must be at least 2 characters",
+  }),
+  aboutMe: z.string().min(10, {
+    message: "About me must be at least 10 characters",
+  }).optional(),
+  skill: z.string().min(2, {
+    message: "Please enter at least one skill",
+  })
 })
 
-
+type FormData = z.infer<typeof formSchema>;
 
 export default function ProfileForm() {
-  
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema)
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      location: "",
+      cvURL: "",
+      email: "",
+      linkedin: "",
+      github: "",
+      profile_summary: "",
+      tagLine: "",
+      aboutMe: "",
+      skill: ""
+    }
   })
-  return (
+
+  function onSubmit(data: FormData) {
+    // Format skills into an array
+    const formattedData = {
+      ...data,
+      skill: data.skill.split('-').map(skill => skill.trim())
+    };
     
+    console.log("Form submitted with data:", formattedData);
+    
+    
+  }
+
+  return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-4xl mx-auto p-6 space-y-6">
         <div className="flex items-center gap-4 mb-8">  
@@ -215,15 +248,6 @@ export default function ProfileForm() {
         <Button type="submit" className="w-full md:w-auto">Save Profile</Button>
       </form>
     </Form>
-    
   )
-
-}
-
-// 2. Define a submit handler.
-function onSubmit(values: z.infer<typeof formSchema>) {
-  // Do something with the form values.
-  // ✅ This will be type-safe and validated.
-  console.log(values)
 }
 
