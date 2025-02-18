@@ -24,7 +24,6 @@ export default async function userPortfolio({ params }: { params: { username: st
      <>
 
      <TemplatePage userDetails={user} /> 
-
          </>
      
    )
