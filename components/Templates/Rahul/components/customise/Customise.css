@@ -1,0 +1,132 @@
+.customise {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.customise-content {
+  position: fixed;
+  z-index: 9999;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--secondary-color);
+  border-radius: 50px;
+  overflow: hidden;
+  height: 60px;
+  background-color: var(--background-color-2);
+  box-shadow: 0px 0px 20px 0px rgba(145, 145, 145, 0.1);
+}
+
+.edit-button {
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  transition: all 0.5s;
+}
+
+.icon {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.customise-options {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 60px 0 30px;
+}
+
+.color-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+  position: relative;
+}
+
+.color-option label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  font-size: 0.75rem;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  width: 125px;
+  height: 50px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+  margin: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 50px;
+}
+
+input[type="color"]:focus {
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(249, 183, 83, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 769px) {
+  .customise-content {
+    height: auto;
+    width: auto;
+    min-width: 60px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+  }
+
+  .customise-options {
+    flex-direction: column;
+    margin: 0;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 50px;
+    z-index: 9999;
+  }
+
+  .color-option {
+    margin: 10px 0;
+  }
+
+  .edit-button {
+    bottom: 0;
+  }
+  .edit-button.open {
+    right: 28px;
+  }
+
+  input[type="color"] {
+    width: 100px;
+  }
+}
+

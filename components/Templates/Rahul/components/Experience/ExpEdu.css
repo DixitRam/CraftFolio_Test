@@ -1,0 +1,210 @@
+.expedu {
+  width: 100%;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.expedu-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px 0;
+  text-align: center;
+}
+
+.expedu-content-title {
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.expedu-content-description {
+  color: var(--grey-color);
+  margin-bottom: 10px;
+}
+
+.expedu-sections {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+  border-radius: 5px;
+}
+
+.expedu-sections .tabs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.expedu-sections .tab {
+  width: 50%;
+  margin: 0 auto;
+  padding: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.tab p {
+  font-size: var(--font-size-l);
+  font-weight: 500;
+}
+
+.tab.active {
+  background-color: var(--grey-color);
+  color: var(--background-color);
+}
+
+.exp-edu-details {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--secondary-color);
+}
+
+/* Experience Section */
+
+.experience {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  gap: 30px;
+  overflow: hidden;
+}
+
+.experience-item {
+  position: relative;
+  margin-left: 75px;
+}
+
+.experience-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+.experience-content > div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.experience-content .title h3 {
+  font-size: var(--font-size-l);
+}
+
+.experience-content span {
+  color: var(--grey-color);
+  font-size: var(--font-size-xs);
+  margin-bottom: -2px;
+}
+
+.company p {
+  color: var(--grey-color);
+  font-size: var(--font-size-s);
+}
+
+.experience-content .role {
+  margin-top: 5px;
+  font-size: var(--font-size-s);
+}
+
+/* Education Section */
+
+.education {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  gap: 30px;
+  overflow: hidden;
+}
+
+.education-item {
+  position: relative;
+  margin-left: 75px;
+}
+
+.education-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.education-content > div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.education-content span {
+  color: var(--grey-color);
+  font-size: var(--font-size-xs);
+  margin-bottom: -2px;
+}
+
+.education-content .title h3 {
+  margin-top: 5px;
+  font-size: var(--font-size-l);
+}
+
+.degree p {
+  color: var(--grey-color);
+  font-size: var(--font-size-s);
+}
+
+/* Common Styles */
+
+.company-logo,
+.college-logo {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 10px;
+  left: -65px;
+  z-index: 1;
+  border-radius: 50%;
+  border: 1px solid var(--grey-color);
+  background-color: var(--text-color);
+}
+
+.vertical-line {
+  width: 2px;
+  height: 200%;
+  background-color: var(--secondary-color);
+  position: absolute;
+  left: -40px;
+  top: -30px;
+}
+
+.circle {
+  position: absolute;
+  top: 20px; /* Adjust this value to move the circle down */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px; /* Adjust as needed */
+  height: 20px; /* Adjust as needed */
+  background-color: white;
+  border-radius: 50%;
+}
+
+/* ------------------------------- */
+/*        Responsive Design        */
+/* ------------------------------- */
+
+@media (max-width: 1024px) {
+  .expedu-sections {
+    width: 95%;
+  }
+}
+

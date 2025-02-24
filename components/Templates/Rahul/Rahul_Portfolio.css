@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --background-color: hsl(0, 0%, 4%);
+  --background-color-2: hsl(0, 0%, 10%);
+  --text-color: hsl(0, 0%, 99%);
+  --grey-color: hsl(0, 0%, 70%);
+  --primary-color: hsl(36, 100%, 50%);
+  --secondary-color: hsl(0, 0%, 27%);
+  --font-size-xs: 12px;
+  --font-size-s: 14px;
+  --font-size-m: 16px;
+  --font-size-l: 18px;
+  --font-size-xl: 20px;
+  --font-size-xxl: 26px;
+  --font-size-xxxl: 48px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--background-color);
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  overflow-y: auto;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-color);
+  scroll-behavior: smooth;
+}
+
+a {
+  all: unset;
+  cursor: pointer;
+}
+
+.primary-button {
+  all: unset;
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 30px;
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  transition: all 0.6s;
+}
+.primary-button:hover {
+  background-color: var(--background-color-2);
+  border: 1px solid var(--primary-color);
+}
+
+.secondary-button {
+  all: unset;
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: 1px solid var(--secondary-color);
+  transition: all 0.6s;
+}
+.secondary-button:hover {
+  border: 1px solid var(--primary-color);
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+
+.shimmer::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(148, 147, 147, 0.1),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -100px;
+  animation: shimmer 4s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* ------------------------------- */
+/*        Responsive Design        */
+/* ------------------------------- */
+
+@media (max-width: 1024px) {
+  :root {
+    --font-size-xs: 11px;
+    --font-size-s: 13px;
+    --font-size-m: 15px;
+    --font-size-l: 17px;
+    --font-size-xl: 19px;
+    --font-size-xxl: 24px;
+    --font-size-xxxl: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-xs: 10px;
+    --font-size-s: 12px;
+    --font-size-m: 14px;
+    --font-size-l: 16px;
+    --font-size-xl: 18px;
+    --font-size-xxl: 22px;
+    --font-size-xxxl: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-xs: 10px;
+    --font-size-s: 11px;
+    --font-size-m: 13px;
+    --font-size-l: 15px;
+    --font-size-xl: 17px;
+    --font-size-xxl: 20px;
+    --font-size-xxxl: 32px;
+  }
+}
+

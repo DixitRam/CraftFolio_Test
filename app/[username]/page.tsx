@@ -1,30 +1,26 @@
 import { notFound } from "next/navigation";
-import data from "@/public/FakeData.json"
+import data from "@/public/FakeData.json";
+import dynamic from "next/dynamic";
+
 const users = data.users;
-export default async function userPortfolio({ params }: { params: { username: string } }) {
 
-    const user = users.filter((u)=>{
-        return u.username == params.username;
-    }).at(0);
+const templateMap = {
+    Marc: dynamic(() => import("@/components/Templates/Marc/Marc_Portfolio")),
+    Rahul: dynamic(() => import("@/components/Templates/Rahul/Rahul_Portfolio")),
+};
+
+export default function userPortfolio({ params }: { params: { username: string } }) {
+    const user = users.find((u) => u.username === params.username);
     
-  if (!user) {
-    return notFound(); // Show 404 page if user is not found
-  }
+    if (!user) {
+        return notFound();
+    }
+    const userTemplate = user.template as keyof typeof templateMap;
+    const TemplatePage = templateMap[userTemplate];
 
-  let userTemplate = user.template;
-  const TemplateLayout = (await import(`@/app/Templates/${userTemplate}/layout`)).default;
+    if (!TemplatePage) {
+        return notFound();
+    }
 
-
-  const TemplatePage = (await import(`@/app/Templates/${userTemplate}/page`)).default;
-  console.log("XXXXXXXXXXXX")
-  console.log(TemplatePage)
- 
-  console.log(user)
-   return (
-     <>
-
-     <TemplatePage userDetails={user} /> 
-         </>
-     
-   )
+    return <TemplatePage userDetails={user} />;
 }
