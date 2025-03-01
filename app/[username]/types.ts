@@ -1,3 +1,5 @@
+//This is Schema for the User Details
+
 export interface UserSchema {
   username: string;
   template: string;
