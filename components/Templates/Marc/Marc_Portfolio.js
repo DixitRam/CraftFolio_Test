@@ -5,7 +5,7 @@ import MyExperience from "./components/MyExperience";
 import ItsTime from "./components/ItsTime";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-
+import "./styles.css";
 
 import { Manrope } from 'next/font/google';
 const ManRope = Manrope({

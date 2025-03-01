@@ -16,17 +16,7 @@
   --font-size-xxxl: 48px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  background-color: var(--background-color);
-}
-
-body {
+.app {
   width: 100%;
   height: 100%;
   max-width: 1600px;
@@ -35,7 +25,80 @@ body {
   font-family: "Poppins", sans-serif;
   color: var(--text-color);
   scroll-behavior: smooth;
+  background-color: var(--background-color);
 }
+
+/* Include all other necessary styles from your original CSS files here */
+/* ... */
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  :root {
+    --font-size-xs: 11px;
+    --font-size-s: 13px;
+    --font-size-m: 15px;
+    --font-size-l: 17px;
+    --font-size-xl: 19px;
+    --font-size-xxl: 24px;
+    --font-size-xxxl: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-xs: 10px;
+    --font-size-s: 12px;
+    --font-size-m: 14px;
+    --font-size-l: 16px;
+    --font-size-xl: 18px;
+    --font-size-xxl: 22px;
+    --font-size-xxxl: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-xs: 10px;
+    --font-size-s: 11px;
+    --font-size-m: 13px;
+    --font-size-l: 15px;
+    --font-size-xl: 17px;
+    --font-size-xxl: 20px;
+    --font-size-xxxl: 32px;
+  }
+}
+
+.title-latter {
+  font-size: var(--font-size-xxxl);
+  font-weight: 550;
+}
+.app {
+  width: 100%;
+  background-color: var(--background-color);
+}
+
+.section-title {
+  font-size: var(--font-size-xxxl);
+  font-weight: 550;
+}
+
+.section-desc {
+  font-size: var(--font-size-l);
+}
+
+
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+
 
 a {
   all: unset;
@@ -68,28 +131,7 @@ a {
   border: 1px solid var(--primary-color);
 }
 
-.shimmer {
-  position: relative;
-  overflow: hidden;
-  background: #f0f0f0;
-  border-radius: 8px;
-}
 
-.shimmer::before {
-  content: "";
-  position: absolute;
-  width: 100px;
-  height: 100%;
-  background-image: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 30%,
-    rgba(148, 147, 147, 0.1),
-    rgba(255, 255, 255, 0) 70%
-  );
-  top: 0;
-  left: -100px;
-  animation: shimmer 4s infinite linear;
-}
 
 @keyframes shimmer {
   0% {
@@ -139,4 +181,3 @@ a {
     --font-size-xxxl: 32px;
   }
 }
-
