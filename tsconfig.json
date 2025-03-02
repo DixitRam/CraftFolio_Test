@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "baseUrl": "."
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/profile_edit"],
   "exclude": ["node_modules"]

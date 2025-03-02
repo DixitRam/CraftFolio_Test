@@ -15,13 +15,13 @@
             "profile_summary": "Passionate Full Stack Developer with over 5 years of experience in web and mobile app development.",
             "tagline": "Building seamless digital experiences, one line of code at a time.",
             "about_me": "Hi, I'm James Anderson, a passionate full-stack developer with a strong background in building high-performance web and mobile applications. With expertise in JavaScript, Python, and Flutter, I love creating user-friendly digital experiences. I specialize in backend optimizations and cloud deployments, ensuring scalable and efficient solutions. When I’m not coding, you’ll find me exploring the latest tech trends, contributing to open-source projects, or enjoying a good coffee in San Francisco.",
-            "skills": {
-                "languages": ["JavaScript", "Python", "Kotlin", "Java"],
-                "frameworks_libraries": ["React.js", "Node.js", "Flutter", "Django"],
-                "databases": ["PostgreSQL", "MongoDB"],
-                "version_control": ["Git", "GitHub"],
-                "devops_tools": ["Docker", "AWS"]
-            },
+            "skills": 
+                 ["JavaScript", "Python", "Kotlin", "Java",
+                "React.js", "Node.js", "Flutter", "Django",
+                "PostgreSQL", "MongoDB",
+                "Git", "GitHub",
+                "Docker", "AWS"]
+            ,
             "projects": [
                 {
                     "name": "Marc",
