@@ -1,32 +1,12 @@
-"use client";
 import Image from "next/image";
 // import ProfilePicture from "../assets/Marc-Ruizenaar-Front-end-Developer.jpg";
-import { useEffect, useRef } from "react";
 
 export default function Header({ProfilePicture,email}) {
-  const hamburgerMenuRef = useRef(null);
 
+  // Handle menu toggle without useEffect
 
-  useEffect(() => {
-    const hamburgerMenu = hamburgerMenuRef.current;
-
-    const handleToggle = () => {
-      if (hamburgerMenu.open) {
-        document.body.classList.add("no-scroll");
-      } else {
-        document.body.classList.remove("no-scroll");
-      }
-    };
-
-    hamburgerMenu.addEventListener("toggle", handleToggle);
-
-    return () => {
-      hamburgerMenu.removeEventListener("toggle", handleToggle);
-    };
-  }, []);
 
   return (
-    
     <header className="relative flex items-center justify-between py-4 md:mt-4 p-5">
       <div className="topBorder absolute left-0 top-0 hidden h-[0.2rem] w-full md:block"></div>
       <div className="topcorners absolute left-[-2px] top-[-3px] z-10 hidden h-5 w-5 md:block"></div>
@@ -39,7 +19,7 @@ export default function Header({ProfilePicture,email}) {
           src={(ProfilePicture)}
           height={50}
           width={50}
-          alt=""
+          alt="Profile Picture"
           loading="eager"
           className="z-50 rounded-full object-cover"
         />
@@ -60,7 +40,7 @@ export default function Header({ProfilePicture,email}) {
         </nav>
 
         <details
-          ref={hamburgerMenuRef}
+          
           id="hamburgerMenu"
           className="md:hidden appearance-none"
         >
@@ -81,14 +61,12 @@ export default function Header({ProfilePicture,email}) {
 
       <div className="hidden items-center gap-6 text-nowrap pr-6 md:flex">
         <a href={`mailto:${email}`} className="flex items-center gap-3">
-
           <span className="relative flex h-3 w-3">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
             <span className="relative inline-flex h-3 w-3 rounded-full bg-green-600"></span>
           </span>
           <p>Available now</p>
         </a>
-   
       </div>
 
       <div className="topBorder absolute bottom-0 left-0 h-[0.2rem] w-full"></div>

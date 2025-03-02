@@ -12,6 +12,7 @@ export default function AboutMe({ProfilePicture,Name,AboutMe}) {
           src={ProfilePicture}
           height={500}
           width={500}
+          alt="Profile Picture"
                     loading="eager"
           className="rounded-full"
           srcSet={`${ProfilePicture}?w=150 150w,

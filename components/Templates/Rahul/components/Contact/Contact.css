@@ -1,0 +1,347 @@
+.contact {
+  width: 100%;
+  padding: 20px;
+  margin-top: 30px;
+  display: grid;
+  place-items: center;
+}
+
+.contact-content {
+  width: 90%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid var(--secondary-color);
+  border-radius: 10px;
+  margin: 50px 0;
+  padding: 25px 50px;
+}
+
+.contact-content-left {
+  z-index: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-left: 20px;
+}
+
+.left-details {
+  width: 100%;
+}
+
+.left-details h2:first-child {
+  font-size: var(--font-size-xl);
+}
+.left-details .hello-icon {
+  color: var(--primary-color);
+  font-size: var(--font-size-xl);
+}
+
+.left-details h2 {
+  font-size: var(--font-size-xxl);
+  font-weight: 550;
+}
+
+.left-email {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 20px 0px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--secondary-color);
+  width: fit-content;
+}
+
+.email-icon {
+  padding: 2px 6px;
+  border-radius: 5px;
+  background-color: var(--background-color-2);
+}
+
+.email-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+.email-text a {
+  font-size: var(--font-size-xs);
+  color: var(--primary-color);
+}
+
+.left-socials {
+  display: flex;
+  gap: 10px;
+  color: var(--grey-color);
+}
+.left-socials p {
+  display: block;
+  color: var(--text-color);
+}
+
+.left-socials a:hover {
+  color: var(--primary-color);
+}
+
+.contact-content-right {
+  z-index: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 2.5%;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(145, 145, 145, 0.1);
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.contact-content-right .title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.contact-content-right h2 {
+  font-size: var(--font-size-xxl);
+  background: linear-gradient(to bottom, var(--text-color) 40%, var(--primary-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.contact-content-right label {
+  font-size: var(--font-size-s);
+  color: var(--grey-color);
+}
+
+.contact-content-right .input-group {
+  width: 96%;
+  padding: 10px 0px;
+}
+
+.input-group input,
+.input-group textarea {
+  all: unset;
+  width: 100%;
+  padding: 6px 6px;
+  font-size: var(--font-size-m);
+  border: 1px solid var(--secondary-color);
+  background-color: var(--background-color-2);
+  border-radius: 6px;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+  border: 1px solid var(--primary-color);
+}
+
+.send-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 45px;
+  border-radius: 6px;
+  font-size: var(--font-size-l);
+  font-weight: 500;
+  margin: 10px 0px;
+}
+
+.send-btn .send-icon {
+  transition: all 0.5s;
+  width: 18px;
+}
+.send-btn:hover .send-icon {
+  color: var(--primary-color);
+}
+
+.copyright {
+  color: var(--secondary-color);
+  font-size: var(--font-size-s);
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  background-color: #4caf50; /* Success color */
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  z-index: 1000;
+}
+
+/* Grid mask */
+
+.grid-mask {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to right, #80808012 1px, transparent 1px),
+    linear-gradient(to bottom, #80808012 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 60%, transparent 100%);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 60%, transparent 100%);
+}
+
+/* ------------------------------- */
+/*        Responsive Design        */
+/* ------------------------------- */
+
+@media (max-width: 768px) {
+  .contact-content {
+    width: 95%;
+    padding: 15px 30px;
+    flex-direction: column;
+  }
+  .contact-content-left {
+    display: none;
+  }
+  .contact-content-right {
+    width: 100%;
+    padding: 1rem;
+  }
+  .send-btn {
+    padding: 8px 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-content {
+    width: 95%;
+    padding: 10px 10px;
+  }
+  .contact-content-right {
+    width: 100%;
+    padding: 20px;
+  }
+  .send-btn {
+    padding: 8px 25px;
+  }
+}
+
+.fun-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.fun-content {
+  text-align: center;
+  max-width: 400px;
+  padding: 2rem;
+  background-color: var(--background-color-2);
+  border-radius: 10px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.fun-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.big-emoji {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.code-icon {
+  color: var(--primary-color);
+  font-size: 2rem !important;
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+}
+
+.fun-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+.availability-status {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--background-color-2);
+  border-radius: 25px;
+  border: 1px solid var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.availability-status:hover {
+  transform: scale(1.05);
+}
+
+.smile-icon {
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .fun-content {
+    padding: 1.5rem;
+    max-width: 300px;
+  }
+
+  .fun-text {
+    font-size: 1rem;
+  }
+
+  .big-emoji {
+    font-size: 2.5rem;
+  }
+}
+
+.emoji-inline {
+  font-size: 1.2em;
+  vertical-align: middle;
+  margin-left: 0.2em;
+}
+
+/* Update the status-indicator to keep the pulse animation */
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
+}
+
