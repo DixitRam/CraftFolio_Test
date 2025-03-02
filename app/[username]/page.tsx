@@ -1,30 +1,26 @@
 import { notFound } from "next/navigation";
 import data from "@/public/FakeData.json"
-const users = data.users;
-export default async function userPortfolio({ params }: { params: { username: string } }) {
 
-    const user = users.filter((u)=>{
-        return u.username == params.username;
-    }).at(0);
+const users = data.users;
+
+export default async function userPortfolio({ params }: { params: { username: string } }) {
+  const user = users.find(u => u.username === params.username);
     
   if (!user) {
-    return notFound(); // Show 404 page if user is not found
+    return notFound();
   }
 
-  let userTemplate = user.template;
-  const TemplateLayout = (await import(`@/app/Templates/${userTemplate}/layout`)).default;
-
-
-  const TemplatePage = (await import(`@/app/Templates/${userTemplate}/page`)).default;
-  console.log("XXXXXXXXXXXX")
-  console.log(TemplatePage)
- 
-  console.log(user)
-   return (
-     <>
-
-     <TemplatePage userDetails={user} /> 
-         </>
-     
-   )
+  try {
+    const userTemplate = user.template || 'Marc'; // Default to Marc if no template specified
+    const TemplatePage = (await import(`@/app/Templates/${userTemplate}/page`)).default;
+    
+    return (
+      <div>
+        <TemplatePage userDetails={user} />
+      </div>
+    );
+  } catch (error) {
+    console.error('Template loading error:', error);
+    return notFound();
+  }
 }

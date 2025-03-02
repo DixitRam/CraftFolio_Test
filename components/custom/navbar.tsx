@@ -22,7 +22,7 @@ export default  function Navbar() {
     return (
         <>
         <nav className="bg-white flex md:flex-row justify-between border-b-2 items-center h-16 px-4">
-            <a href="/" className={ `${logoFont.className} text-2xl` }>Craft Fol!o</a>
+            <a href="/" className={ `${logoFont.className} text-2xl text-custom-primary` }>Craft Fol!o</a>
             <div className="space-x-6 mr-3 flex md:flex-row items-center ">
               <Link href="/" className={
                clsx('text-black-500',

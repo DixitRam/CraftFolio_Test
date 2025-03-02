@@ -2,7 +2,7 @@
 
 import { Form } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, useFieldArray } from "react-hook-form"
+import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import {
@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Plus, Trash2 } from "lucide-react"
+import { Plus, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const experienceSchema = z.object({
   experiences: z.array(z.object({
@@ -33,12 +33,13 @@ const experienceSchema = z.object({
       message: "Please enter a valid date range.",
     }),
   }))
-})
+});
 
 type FormData = z.infer<typeof experienceSchema>;
 
-export default function ExperienceForm() {
+export default function EditExperienceForm({ userId }: { userId: string }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
 
   const form = useForm<FormData>({
     resolver: zodResolver(experienceSchema),
@@ -52,42 +53,77 @@ export default function ExperienceForm() {
         }
       ]
     }
-  })
+  });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "experiences"
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsFetching(true);
+        const response = await fetch(`/api/experience/${userId}`);
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          form.reset({ experiences: data.data });
+        }
+      } catch (error) {
+        console.error('Error fetching experience data:', error);
+        toast.error('Failed to load experience data');
+      } finally {
+        setIsFetching(false);
+      }
+    };
+
+    if (userId) {
+      fetchData();
+    }
+  }, [userId, form]);
+
   const onSubmit = async (data: FormData) => {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/experience', {
-        method: 'POST',
+      
+      const response = await fetch(`/api/experience/${userId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ experiences: data.experiences }),
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save experience');
+        throw new Error('Failed to update experience');
       }
 
-      toast.success('Experience details saved successfully!');
+      toast.success('Experience updated successfully!');
       
-    } catch (error) {
-      toast.error('Failed to save experience details. Please try again.');
-      console.error('Error saving experience:', error);
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to update experience');
+      console.error('Error details:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
+  if (isFetching) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-custom-primary"></div>
+          <p className="mt-4 text-gray-600">Loading experience data...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Experience</h2>
+        <h2 className="text-2xl font-bold">Edit Experience</h2>
         <Button 
           type="button" 
           variant="outline" 
@@ -187,10 +223,10 @@ export default function ExperienceForm() {
             className="w-full bg-custom-primary text-white hover:bg-custom-primary/90"
             disabled={isLoading}
           >
-            {isLoading ? 'Saving...' : 'Save All Experience'}
+            {isLoading ? 'Updating...' : 'Update Experience'}
           </Button>
         </form>
       </Form>
     </div>
   );
-}
+} 

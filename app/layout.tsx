@@ -8,6 +8,7 @@ import {
   SignedOut,
   UserButton
 } from '@clerk/nextjs'
+import { Toaster } from 'sonner';
 
 import Navbar from "@/components/custom/navbar";
 const geistSans = Geist({
@@ -31,16 +32,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    
-      <ClerkProvider>
-        <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable}  antialiased w-full h-screen`}>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased w-full h-screen`}>
           <Navbar/>
-            
-            {children}
-          </body>
-        </html>
-      </ClerkProvider>
-    
+          {children}
+          <Toaster position="top-center" />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
