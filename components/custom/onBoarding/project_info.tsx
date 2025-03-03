@@ -40,7 +40,11 @@ const projectSchema = z.object({
 
 type FormData = z.infer<typeof projectSchema>;
 
-export default function ProjectForm() {
+interface FormProps {
+  onComplete: () => void;
+}
+
+export default function ProjectForm({ onComplete }: FormProps) {
   const [isLoading, setIsLoading] = useState(false);
   
   const form = useForm<FormData>({
@@ -85,7 +89,7 @@ export default function ProjectForm() {
 
       const result = await response.json();
       toast.success('Projects saved successfully!');
-      
+      onComplete();
     } catch (error) {
       toast.error('Failed to save projects. Please try again.');
       console.error('Error saving projects:', error);

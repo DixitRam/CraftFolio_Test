@@ -37,7 +37,11 @@ const experienceSchema = z.object({
 
 type FormData = z.infer<typeof experienceSchema>;
 
-export default function ExperienceForm() {
+interface FormProps {
+  onComplete: () => void;
+}
+
+export default function ExperienceForm({ onComplete }: FormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<FormData>({
@@ -75,6 +79,7 @@ export default function ExperienceForm() {
       }
 
       toast.success('Experience details saved successfully!');
+      onComplete();
       
     } catch (error) {
       toast.error('Failed to save experience details. Please try again.');

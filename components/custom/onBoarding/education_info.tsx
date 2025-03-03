@@ -35,7 +35,11 @@ const educationSchema = z.object({
 
 type FormData = z.infer<typeof educationSchema>;
 
-export default function EducationForm() {
+interface FormProps {
+  onComplete: () => void;
+}
+
+export default function EducationForm({ onComplete }: FormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<FormData>({
@@ -73,6 +77,7 @@ export default function EducationForm() {
       }
 
       toast.success('Education details saved successfully!');
+      onComplete();
       
     } catch (error) {
       toast.error('Failed to save education details. Please try again.');
