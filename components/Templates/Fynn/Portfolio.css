@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer utilities {
+ 
+  .text-accent {
+    color: theme('colors.accent.DEFAULT');
+  }
+    
+    .font-primary {
+      font-family: theme('fontFamily.primary');
+    }
+}
+
+
+@layer base {
+  body {
+    @apply text-[15px] font-primary bg-primary  text-white leading-loose xl:mx-[185px] ;
+  }
+  .h1{
+    @apply text-[40px] xl:text-[55px] leading-[1.1] font-semibold
+  }
+  .h2{
+    @apply text-[28px] xl:text-[25px] leading-[1.1] font-semibold
+  }
+  .h3{
+    @apply text-[18px] xl:text-[20px] leading-[1.1] font-semibold
+  }
+  .text-outline {
+    -webkit-text-stroke: 1px #ffffff;
+  }
+  .text-outline-hover {
+    -webkit-text-stroke: 1px theme('colors.accent.DEFAULT');
+  }
+}
+
