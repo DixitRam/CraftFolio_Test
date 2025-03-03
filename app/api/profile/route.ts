@@ -22,8 +22,17 @@ export async function POST(req: Request) {
     const profileData = {
       ...data,
       userId,
-      skills: data.skill.split('-').map((skill: string) => skill.trim())
+      skills: data.skill.split('-').map((skill: string) => skill.trim()),
+      contact: {
+        email: data.contact.email,
+        linkedin: data.contact.linkedin,
+        github: data.contact.github
+      }
     };
+
+    // Remove the skill field as we've converted it to skills array
+    delete profileData.skill;
+    
     console.log('Formatted data:', profileData); // Debug log
 
     // Check if profile already exists for this user

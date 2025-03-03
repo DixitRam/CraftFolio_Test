@@ -25,29 +25,39 @@ import { useState } from 'react'
 
 
 const formSchema = z.object({
+  username: z.string().min(5, {
+    message: "Username must be at least 5 characters.",
+  }),
+  template: z.string().default("Marc"),
   name: z.string().min(2, {
     message: "Profile name must be at least 2 characters.",
   }),
-  location: z.string().optional(),
+  profile_picture: z.string().url({
+    message: "Please enter a valid image URL",
+  }),
+  location: z.string().min(10,{
+    message: "Location must be at least 10 characters.",
+  }),
   cvURL: z.string().url({
     message: "Please enter a valid URL",
+  }).optional(),
+  contact: z.object({
+    email: z.string().email({
+      message: "Please enter a valid email address",
+    }),
+    linkedin: z.string().url({
+      message: "Please enter a valid LinkedIn URL",
+    }),
+    github: z.string().url({
+      message: "Please enter a valid GitHub URL",
+    }),
   }),
-  email: z.string().email({
-    message: "Please enter a valid email address",
-  }),
-  linkedin: z.string().url({
-    message: "Please enter a valid LinkedIn URL",
-  }),
-  github: z.string().url({
-    message: "Please enter a valid GitHub URL",
-  }),
-  profile_summary: z.string().optional(),
-  tagLine: z.string().min(2, {
+  tagline: z.string().min(2, {
     message: "Tag line must be at least 2 characters",
   }),
-  aboutMe: z.string().min(10, {
+  about_me: z.string().min(10, {
     message: "About me must be at least 10 characters",
-  }).optional(),
+  }),
   skill: z.string().min(2, {
     message: "Please enter at least one skill",
   })
@@ -61,15 +71,19 @@ export default function ProfileForm() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      username: "",
+      template: "Marc",
       name: "",
+      profile_picture: "",
       location: "",
       cvURL: "",
-      email: "",
-      linkedin: "",
-      github: "",
-      profile_summary: "",
-      tagLine: "",
-      aboutMe: "",
+      contact: {
+        email: "",
+        linkedin: "",
+        github: "",
+      },
+      tagline: "",
+      about_me: "",
       skill: ""
     }
   })
@@ -112,18 +126,39 @@ export default function ProfileForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-4xl mx-auto p-6 space-y-6">
         <div className="flex items-center gap-4 mb-8">  
           <Avatar className="h-24 w-24">
-            <AvatarImage src="" />
+            <AvatarImage src={form.watch("profile_picture")} />
             <AvatarFallback className="text-3xl">
               <BsPersonBoundingBox />
             </AvatarFallback>
           </Avatar>
-          <Button type="button" className="flex items-center gap-2">
-            <CiImageOn className="w-5 h-5" />
-            Upload Image
-          </Button>
+          <FormField
+            control={form.control}
+            name="profile_picture"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormControl>
+                  <Input placeholder="Profile Picture URL" {...field} className="w-full" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">Username</FormLabel>
+                <FormControl>
+                  <Input placeholder="Username" {...field} className="w-full" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="name"
@@ -133,9 +168,6 @@ export default function ProfileForm() {
                 <FormControl>
                   <Input placeholder="Profile Name" {...field} className="w-full" />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -147,7 +179,7 @@ export default function ProfileForm() {
               <FormItem>
                 <FormLabel className="text-base">Location</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Type your address here" {...field} className="w-full" />
+                  <Input placeholder="Your location" {...field} className="w-full" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -158,9 +190,9 @@ export default function ProfileForm() {
             name="cvURL"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-base">Custom URL</FormLabel>
+                <FormLabel className="text-base">CV URL</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter Your Custom URL" {...field} className="w-full" />
+                  <Input placeholder="Enter Your CV URL" {...field} className="w-full" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -168,7 +200,7 @@ export default function ProfileForm() {
           />
           <FormField
             control={form.control}
-            name="email"
+            name="contact.email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-base">Email</FormLabel>
@@ -181,7 +213,7 @@ export default function ProfileForm() {
           />
           <FormField
             control={form.control}
-            name="linkedin"
+            name="contact.linkedin"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-base">LinkedIn</FormLabel>
@@ -194,7 +226,7 @@ export default function ProfileForm() {
           />
           <FormField
             control={form.control}
-            name="github"
+            name="contact.github"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-base">Github</FormLabel>
@@ -207,7 +239,7 @@ export default function ProfileForm() {
           />
           <FormField
             control={form.control}
-            name="tagLine"
+            name="tagline"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-base">Tagline</FormLabel>
@@ -225,7 +257,7 @@ export default function ProfileForm() {
               <FormItem>
                 <FormLabel className="text-base">Skills</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter Your Skills separared by '-' over here" {...field} className="w-full" />
+                  <Input placeholder="Enter Your Skills separated by '-'" {...field} className="w-full" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -233,42 +265,23 @@ export default function ProfileForm() {
           />
         </div>
 
-        <div className="space-y-6">
-          <FormField
-            control={form.control}
-            name="profile_summary"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-base">Profile Summary</FormLabel>
-                <FormControl>
-                  <Textarea 
-                    placeholder="Enter your Profile Summary here" 
-                    {...field}
-                    className="min-h-[100px]"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="aboutMe"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-base">About Me</FormLabel>
-                <FormControl>
-                  <Textarea 
-                    placeholder="Type about yourself here." 
-                    {...field}
-                    className="min-h-[150px]"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        <FormField
+          control={form.control}
+          name="about_me"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-base">About Me</FormLabel>
+              <FormControl>
+                <Textarea 
+                  placeholder="Type about yourself here." 
+                  {...field}
+                  className="min-h-[150px]"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <Button 
           type="submit" 
