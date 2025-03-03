@@ -21,27 +21,39 @@ import { toast } from 'sonner'
 import { useState, useEffect } from 'react'
 
 const formSchema = z.object({
+  username: z.string().min(5, {
+    message: "Username must be at least 5 characters.",
+  }),
+  template: z.string().default("Marc"),
   name: z.string().min(2, {
     message: "Profile name must be at least 2 characters.",
   }),
-  location: z.string().optional(),
+  profile_picture: z.string().url({
+    message: "Please enter a valid image URL",
+  }),
+  location: z.string().min(10,{
+    message: "Location must be at least 10 characters.",
+  }),
   cvURL: z.string().url({
     message: "Please enter a valid URL",
+  }).optional(),
+  contact: z.object({
+    email: z.string().email({
+      message: "Please enter a valid email address",
+    }),
+    linkedin: z.string().url({
+      message: "Please enter a valid LinkedIn URL",
+    }),
+    github: z.string().url({
+      message: "Please enter a valid GitHub URL",
+    }),
   }),
-  email: z.string().email({
-    message: "Please enter a valid email address",
-  }),
-  linkedin: z.string().url({
-    message: "Please enter a valid LinkedIn URL",
-  }),
-  github: z.string().url({
-    message: "Please enter a valid GitHub URL",
-  }),
-  profile_summary: z.string().optional(),
-  tagLine: z.string().min(2, {
+  tagline: z.string().min(2, {
     message: "Tag line must be at least 2 characters",
   }),
-  aboutMe: z.string().optional(),
+  about_me: z.string().min(10, {
+    message: "About me must be at least 10 characters",
+  }),
   skill: z.string().min(2, {
     message: "Please enter at least one skill",
   })
@@ -56,15 +68,19 @@ export default function EditProfileForm({ userId }: { userId: string }) {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      username: "",
+      template: "Marc",
       name: "",
+      profile_picture: "",
       location: "",
       cvURL: "",
-      email: "",
-      linkedin: "",
-      github: "",
-      profile_summary: "",
-      tagLine: "",
-      aboutMe: "",
+      contact: {
+        email: "",
+        linkedin: "",
+        github: "",
+      },
+      tagline: "",
+      about_me: "",
       skill: ""
     }
   });
@@ -77,12 +93,16 @@ export default function EditProfileForm({ userId }: { userId: string }) {
         const data = await response.json();
 
         if (response.ok && data.success) {
-          // Format the data for the form
           const formattedData = {
             ...data.data,
             skill: Array.isArray(data.data.skills) 
               ? data.data.skills.join(' - ') 
-              : data.data.skill || ''
+              : '',
+            contact: {
+              email: data.data.contact?.email || '',
+              linkedin: data.data.contact?.linkedin || '',
+              github: data.data.contact?.github || '',
+            }
           };
           form.reset(formattedData);
         }
@@ -146,21 +166,60 @@ export default function EditProfileForm({ userId }: { userId: string }) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="flex items-center gap-4 mb-8">  
           <Avatar className="h-24 w-24">
-            <AvatarImage src="" />
+            <AvatarImage 
+              src={form.getValues("profile_picture")} 
+              alt="Profile picture" 
+            />
             <AvatarFallback className="text-3xl">
               <BsPersonBoundingBox />
             </AvatarFallback>
           </Avatar>
-          <Button 
-            type="button" 
-            className="flex items-center gap-2 bg-blue-100 text-custom-primary hover:bg-custom-primary hover:text-white"
-          >
-            <CiImageOn className="w-5 h-5" />
-            Update Image
-          </Button>
+          <div className="flex flex-col gap-2">
+            <FormField
+              control={form.control}
+              name="profile_picture"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input 
+                      placeholder="Enter image URL" 
+                      {...field} 
+                      className="w-full"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button 
+              type="button" 
+              className="flex items-center gap-2 bg-blue-100 text-custom-primary hover:bg-custom-primary hover:text-white"
+              onClick={() => {
+                // You can add image upload functionality here
+                toast.info("Image upload functionality to be implemented");
+              }}
+            >
+              <CiImageOn className="w-5 h-5" />
+              Upload Image
+            </Button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Username</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your username" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="name"
@@ -191,7 +250,7 @@ export default function EditProfileForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name="email"
+            name="contact.email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
@@ -219,7 +278,7 @@ export default function EditProfileForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name="linkedin"
+            name="contact.linkedin"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>LinkedIn</FormLabel>
@@ -233,7 +292,7 @@ export default function EditProfileForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name="github"
+            name="contact.github"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>GitHub</FormLabel>
@@ -248,7 +307,7 @@ export default function EditProfileForm({ userId }: { userId: string }) {
 
         <FormField
           control={form.control}
-          name="tagLine"
+          name="tagline"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Tag Line</FormLabel>
@@ -276,25 +335,7 @@ export default function EditProfileForm({ userId }: { userId: string }) {
 
         <FormField
           control={form.control}
-          name="profile_summary"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Profile Summary</FormLabel>
-              <FormControl>
-                <Textarea 
-                  placeholder="A brief summary of your professional profile..." 
-                  {...field}
-                  className="min-h-[100px]"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="aboutMe"
+          name="about_me"
           render={({ field }) => (
             <FormItem>
               <FormLabel>About Me</FormLabel>

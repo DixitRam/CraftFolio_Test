@@ -22,7 +22,9 @@ import { Input } from "@/components/ui/input"
 import { toast } from 'sonner'
 import { useState } from 'react'
 
-
+interface FormProps {
+  onComplete: () => void;
+}
 
 const formSchema = z.object({
   username: z.string().min(5, {
@@ -65,7 +67,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function ProfileForm() {
+export default function ProfileForm({ onComplete }: FormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<FormData>({
@@ -111,8 +113,7 @@ export default function ProfileForm() {
       }
 
       toast.success('Profile saved successfully!');
-      console.log('Saved profile:', result.profile); // Debug log
-      
+      onComplete();
     } catch (error: any) {
       toast.error(error.message || 'Failed to save profile. Please try again.');
       console.error('Error details:', error);

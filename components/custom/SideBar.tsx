@@ -1,9 +1,11 @@
 'use client'
 import clsx from 'clsx'
+import { CheckCircle } from 'lucide-react'
 
 interface SideBarProps {
   activeItem: string
   setActiveItem: (id: string) => void
+  completedSteps: string[]
 }
 
 const items = [
@@ -25,7 +27,7 @@ const items = [
   },
 ]
 
-export default function SideBar({ activeItem, setActiveItem }: SideBarProps) {
+export default function SideBar({ activeItem, setActiveItem, completedSteps }: SideBarProps) {
   return (
     <div className="h-[calc(100vh-4rem)] w-64 bg-gray-50 border-r">
       <nav className="p-4 space-y-2">
@@ -34,14 +36,17 @@ export default function SideBar({ activeItem, setActiveItem }: SideBarProps) {
             key={item.id}
             onClick={() => setActiveItem(item.id)}
             className={clsx(
-              'w-full text-left px-4 py-2 rounded-lg transition-colors',
+              'w-full text-left px-4 py-2 rounded-lg transition-colors flex justify-between items-center',
               {
                 'bg-blue-100 text-custom-primary': activeItem === item.id,
                 'text-gray-700 hover:bg-gray-100': activeItem !== item.id,
               }
             )}
           >
-            {item.title}
+            <span>{item.title}</span>
+            {completedSteps.includes(item.id) && (
+              <CheckCircle className="w-5 h-5 text-green-500" />
+            )}
           </button>
         ))}
       </nav>

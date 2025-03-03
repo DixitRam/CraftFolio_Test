@@ -50,14 +50,29 @@ export async function PUT(
     await connectDB();
     const data = await request.json();
     
+    // Format the data to match the schema
+    const formattedData = {
+      ...data,
+      skills: data.skill.split('-').map((skill: string) => skill.trim()),
+      contact: {
+        email: data.contact.email,
+        linkedin: data.contact.linkedin,
+        github: data.contact.github
+      }
+    };
+
+    // Remove the skill field as we've converted it to skills array
+    delete formattedData.skill;
+    
     const profile = await Profile.findOneAndUpdate(
       { userId },
-      { ...data },
+      formattedData,
       { new: true, upsert: true }
     );
     
     return NextResponse.json({ success: true, data: profile });
   } catch (error) {
+    console.error('Error updating profile:', error);
     return NextResponse.json(
       { success: false, error: 'Error updating profile' },
       { status: 500 }
