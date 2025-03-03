@@ -15,6 +15,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Plus, Trash2 } from "lucide-react"
+import { toast } from 'sonner'
+import { useState } from 'react'
 
 const educationSchema = z.object({
   educations: z.array(z.object({
@@ -34,6 +36,8 @@ const educationSchema = z.object({
 type FormData = z.infer<typeof educationSchema>;
 
 export default function EducationForm() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<FormData>({
     resolver: zodResolver(educationSchema),
     defaultValues: {
@@ -53,9 +57,30 @@ export default function EducationForm() {
     name: "educations"
   });
 
-  function onSubmit(data: FormData) {
-    console.log(data)
-  }
+  const onSubmit = async (data: FormData) => {
+    try {
+      setIsLoading(true);
+      const response = await fetch('/api/education', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ educations: data.educations }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save education');
+      }
+
+      toast.success('Education details saved successfully!');
+      
+    } catch (error) {
+      toast.error('Failed to save education details. Please try again.');
+      console.error('Error saving education:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -70,7 +95,7 @@ export default function EducationForm() {
             description: "",
             date: "",
           })}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 bg-blue-100 text-custom-primary hover:bg-custom-primary hover:text-white"
         >
           <Plus size={16} /> Add Education
         </Button>
@@ -157,9 +182,10 @@ export default function EducationForm() {
 
           <Button 
             type="submit"
-            className="w-full"
+            className="w-full bg-custom-primary text-white hover:bg-custom-primary/90"
+            disabled={isLoading}
           >
-            Save All Education
+            {isLoading ? 'Saving...' : 'Save All Education'}
           </Button>
         </form>
       </Form>

@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Plus, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const projectSchema = z.object({
   projects: z.array(z.object({
@@ -36,13 +36,14 @@ const projectSchema = z.object({
       message: "Please enter a valid image URL.",
     }),
   }))
-})
+});
 
 type FormData = z.infer<typeof projectSchema>;
 
-export default function ProjectForm() {
+export default function EditProjectForm({ userId }: { userId: string }) {
   const [isLoading, setIsLoading] = useState(false);
-  
+  const [isFetching, setIsFetching] = useState(true);
+
   const form = useForm<FormData>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
@@ -63,41 +64,84 @@ export default function ProjectForm() {
     name: "projects"
   });
 
+  // Fetch existing data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsFetching(true);
+        const response = await fetch(`/api/projects/${userId}`);
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          const formattedProjects = data.data.map((project: any) => ({
+            ...project,
+            technologies: Array.isArray(project.technologies) 
+              ? project.technologies.join(' - ') 
+              : project.technologies
+          }));
+          
+          form.reset({ projects: formattedProjects });
+        }
+      } catch (error) {
+        console.error('Error fetching project data:', error);
+        toast.error('Failed to load project data');
+      } finally {
+        setIsFetching(false);
+      }
+    };
+
+    if (userId) {
+      fetchData();
+    }
+  }, [userId, form]);
+
   const onSubmit = async (data: FormData) => {
     try {
       setIsLoading(true);
-      const formattedData = data.projects.map(project => ({
-        ...project,
-        technologies: project.technologies.split('-').map(tech => tech.trim()),
-      }));
+      const formattedData = {
+        projects: data.projects.map(project => ({
+          ...project,
+          technologies: project.technologies.split('-').map(tech => tech.trim())
+        }))
+      };
       
-      const response = await fetch('/api/projects', {
-        method: 'POST',
+      const response = await fetch(`/api/projects/${userId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ projects: formattedData }),
+        body: JSON.stringify(formattedData),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save projects');
+        throw new Error('Failed to update projects');
       }
 
-      const result = await response.json();
-      toast.success('Projects saved successfully!');
+      toast.success('Projects updated successfully!');
       
-    } catch (error) {
-      toast.error('Failed to save projects. Please try again.');
-      console.error('Error saving projects:', error);
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to update projects');
+      console.error('Error details:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
+  if (isFetching) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-custom-primary"></div>
+          <p className="mt-4 text-gray-600">Loading project data...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Projects</h2>
+        <h2 className="text-2xl font-bold">Edit Projects</h2>
         <Button 
           type="button" 
           variant="outline" 
@@ -212,10 +256,10 @@ export default function ProjectForm() {
             className="w-full bg-custom-primary text-white hover:bg-custom-primary/90"
             disabled={isLoading}
           >
-            {isLoading ? 'Saving...' : 'Save All Projects'}
+            {isLoading ? 'Updating...' : 'Update Projects'}
           </Button>
         </form>
       </Form>
     </div>
   );
-}
+} 

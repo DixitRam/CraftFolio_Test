@@ -2,7 +2,7 @@
 
 import { Form } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, useFieldArray } from "react-hook-form"
+import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import {
@@ -14,92 +14,126 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Plus, Trash2 } from "lucide-react"
+import { Plus, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-const experienceSchema = z.object({
-  experiences: z.array(z.object({
-    company: z.string().min(2, {
-      message: "Company name must be at least 2 characters.",
+const educationSchema = z.object({
+  educations: z.array(z.object({
+    institution: z.string().min(2, {
+      message: "Institution name must be at least 2 characters.",
     }),
-    role: z.string().min(2, {
-      message: "Role must be at least 2 characters.",
+    degree: z.string().min(2, {
+      message: "Degree must be at least 2 characters.",
     }),
-    description: z.string().min(10, {
-      message: "Description must be at least 10 characters.",
-    }),
+    description: z.string().optional(),
     date: z.string().min(2, {
       message: "Please enter a valid date range.",
     }),
   }))
-})
+});
 
-type FormData = z.infer<typeof experienceSchema>;
+type FormData = z.infer<typeof educationSchema>;
 
-export default function ExperienceForm() {
+export default function EditEducationForm({ userId }: { userId: string }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
 
   const form = useForm<FormData>({
-    resolver: zodResolver(experienceSchema),
+    resolver: zodResolver(educationSchema),
     defaultValues: {
-      experiences: [
+      educations: [
         {
-          company: "",
-          role: "",
+          institution: "",
+          degree: "",
           description: "",
           date: "",
         }
       ]
     }
-  })
+  });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "experiences"
+    name: "educations"
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsFetching(true);
+        const response = await fetch(`/api/education/${userId}`);
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          form.reset({ educations: data.data });
+        }
+      } catch (error) {
+        console.error('Error fetching education data:', error);
+        toast.error('Failed to load education data');
+      } finally {
+        setIsFetching(false);
+      }
+    };
+
+    if (userId) {
+      fetchData();
+    }
+  }, [userId, form]);
 
   const onSubmit = async (data: FormData) => {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/experience', {
-        method: 'POST',
+      
+      const response = await fetch(`/api/education/${userId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ experiences: data.experiences }),
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save experience');
+        throw new Error('Failed to update education');
       }
 
-      toast.success('Experience details saved successfully!');
+      toast.success('Education updated successfully!');
       
-    } catch (error) {
-      toast.error('Failed to save experience details. Please try again.');
-      console.error('Error saving experience:', error);
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to update education');
+      console.error('Error details:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
+  if (isFetching) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-custom-primary"></div>
+          <p className="mt-4 text-gray-600">Loading education data...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Experience</h2>
+        <h2 className="text-2xl font-bold">Edit Education</h2>
         <Button 
           type="button" 
           variant="outline" 
           onClick={() => append({
-            company: "",
-            role: "",
+            institution: "",
+            degree: "",
             description: "",
             date: "",
           })}
           className="flex items-center gap-2 bg-blue-100 text-custom-primary hover:bg-custom-primary hover:text-white"
         >
-          <Plus size={16} /> Add Experience
+          <Plus size={16} /> Add Education
         </Button>
       </div>
 
@@ -121,12 +155,12 @@ export default function ExperienceForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
                   control={form.control}
-                  name={`experiences.${index}.company`}
+                  name={`educations.${index}.institution`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base">Company Name</FormLabel>
+                      <FormLabel className="text-base">Institution Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter company name" {...field} />
+                        <Input placeholder="Enter institution name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -135,12 +169,12 @@ export default function ExperienceForm() {
                 
                 <FormField
                   control={form.control}
-                  name={`experiences.${index}.role`}
+                  name={`educations.${index}.degree`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base">Role</FormLabel>
+                      <FormLabel className="text-base">Degree</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter your role" {...field} />
+                        <Input placeholder="Enter degree/certification" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -149,12 +183,12 @@ export default function ExperienceForm() {
 
                 <FormField
                   control={form.control}
-                  name={`experiences.${index}.date`}
+                  name={`educations.${index}.date`}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-base">Date Range</FormLabel>
                       <FormControl>
-                        <Input placeholder="Jan 2022 - Present" {...field} />
+                        <Input placeholder="2020 - 2024" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -164,15 +198,15 @@ export default function ExperienceForm() {
 
               <FormField
                 control={form.control}
-                name={`experiences.${index}.description`}
+                name={`educations.${index}.description`}
                 render={({ field }) => (
                   <FormItem className="mt-6">
                     <FormLabel className="text-base">Description</FormLabel>
                     <FormControl>
                       <Textarea 
-                        placeholder="Describe your role and responsibilities..." 
+                        placeholder="Describe your education..." 
                         {...field}
-                        className="min-h-[150px]"
+                        className="min-h-[100px]"
                       />
                     </FormControl>
                     <FormMessage />
@@ -187,10 +221,10 @@ export default function ExperienceForm() {
             className="w-full bg-custom-primary text-white hover:bg-custom-primary/90"
             disabled={isLoading}
           >
-            {isLoading ? 'Saving...' : 'Save All Experience'}
+            {isLoading ? 'Updating...' : 'Update Education'}
           </Button>
         </form>
       </Form>
     </div>
   );
-}
+} 

@@ -19,6 +19,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { toast } from 'sonner'
+import { useState } from 'react'
 
 
 
@@ -54,6 +56,8 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export default function ProfileForm() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -70,17 +74,38 @@ export default function ProfileForm() {
     }
   })
 
-  function onSubmit(data: FormData) {
-    // Format skills into an array
-    const formattedData = {
-      ...data,
-      skill: data.skill.split('-').map(skill => skill.trim())
-    };
-    
-    console.log("Form submitted with data:", formattedData);
-    
-    
-  }
+  const onSubmit = async (data: FormData) => {
+    try {
+      setIsLoading(true);
+      const formattedData = {
+        ...data,
+        skills: data.skill.split('-').map(skill => skill.trim())
+      };
+      
+      const response = await fetch('/api/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formattedData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to save profile');
+      }
+
+      toast.success('Profile saved successfully!');
+      console.log('Saved profile:', result.profile); // Debug log
+      
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to save profile. Please try again.');
+      console.error('Error details:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Form {...form}>
@@ -245,7 +270,13 @@ export default function ProfileForm() {
           />
         </div>
 
-        <Button type="submit" className="w-full md:w-auto">Save Profile</Button>
+        <Button 
+          type="submit" 
+          className="w-full md:w-auto"
+          disabled={isLoading}
+        >
+          {isLoading ? 'Saving...' : 'Save Profile'}
+        </Button>
       </form>
     </Form>
   )
