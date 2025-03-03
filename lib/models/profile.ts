@@ -5,38 +5,46 @@ const profileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  username: {
+    type: String,
+    required: true,
+  },
+  template: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
   },
-  location: String,
+  profile_picture: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
   cvURL: {
     type: String,
     required: true,
   },
-  email: {
+  contact: {
+    type: Object,
+    required: true,
+  },
+  tagline: {
     type: String,
     required: true,
   },
-  linkedin: {
+  about_me: {
     type: String,
     required: true,
   },
-  github: {
-    type: String,
-    required: true,
-  },
-  profile_summary: String,
-  tagLine: {
-    type: String,
-    required: true,
-  },
-  aboutMe: String,
   skills: [{
     type: String,
     required: true,
   }],
-  avatar: String,
 }, {
   timestamps: true
 });
