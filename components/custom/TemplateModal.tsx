@@ -91,7 +91,7 @@ const TemplateModal: React.FC<TemplateModalProps> = ({ template, isOpen, onClose
           
           {/* Main content - Scrollable container */}
           <div 
-            className={`h-full overflow-auto py-16 px-4 flex items-center justify-center ${isZoomed ? 'cursor-move' : ''}`}
+            className={`h-full overflow-auto py-16 px-4 flex ${isZoomed ? 'items-start' : 'items-center'} justify-center ${isZoomed ? 'cursor-move' : ''}`}
             style={{ scrollBehavior: 'smooth' }}
           >
             <motion.div 
@@ -107,6 +107,8 @@ const TemplateModal: React.FC<TemplateModalProps> = ({ template, isOpen, onClose
                 style={{ 
                   boxShadow: '0 0 30px rgba(0,0,0,0.5)',
                   cursor: isZoomed ? 'move' : 'pointer',
+                  transformOrigin: 'top center', // Set transform origin to top center
+
                 }}
                 onClick={isZoomed ? undefined : toggleZoom}
               />
