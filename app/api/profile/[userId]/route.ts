@@ -78,4 +78,53 @@ export async function PUT(
       { status: 500 }
     );
   }
-} 
+}
+
+export async function PATCH(
+  request: Request,
+  { params }: { params: { userId: string } }
+) {
+  const { userId } = params;
+
+  try {
+    const { userId: authUserId } = await auth();
+    if (!authUserId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    await connectDB();
+    const { template } = await request.json();
+    
+    if (!template) {
+      return NextResponse.json(
+        { success: false, error: 'Template is required' },
+        { status: 400 }
+      );
+    }
+    
+    const updatedProfile = await Profile.findOneAndUpdate(
+      { userId },
+      { template },
+      { new: true }
+    );
+    
+    if (!updatedProfile) {
+      return NextResponse.json(
+        { success: false, error: 'Profile not found' },
+        { status: 404 }
+      );
+    }
+    
+    return NextResponse.json({ 
+      success: true, 
+      data: updatedProfile,
+      message: 'Template updated successfully'
+    });
+  } catch (error) {
+    console.error('Error updating template:', error);
+    return NextResponse.json(
+      { success: false, error: 'Error updating template' },
+      { status: 500 }
+    );
+  }
+}

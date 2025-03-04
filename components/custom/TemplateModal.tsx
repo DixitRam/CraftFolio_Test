@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, ArrowLeft, Github, ZoomIn, ZoomOut } from 'lucide-react';
 import { Template } from '../../types/templateTypes';
 import { useState } from 'react';
+import { useUser } from '@clerk/nextjs'; // Import useUser hook for authentication
 
 interface TemplateModalProps {
   template: Template | null;
@@ -13,12 +14,49 @@ interface TemplateModalProps {
 
 const TemplateModal: React.FC<TemplateModalProps> = ({ template, isOpen, onClose, onSelect }) => {
   const [isZoomed, setIsZoomed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
+  const { user } = useUser(); // Get current user
 
   if (!template) return null;
 
   const toggleZoom = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsZoomed(!isZoomed);
+  };
+
+  // Function to update template
+  const handleTemplateSelect = async () => {
+    if (!template || !user) return;
+    
+    try {
+      setIsLoading(true);
+      
+      const response = await fetch(`/api/profile/${user.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          template: template.templateName,
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Call the onSelect prop to notify parent component
+        onSelect(template);
+        onClose();
+      } else {
+        console.error('Failed to update template:', data.error);
+        // You could add error handling/notification here
+      }
+    } catch (error) {
+      console.error('Error updating template:', error);
+      // You could add error handling/notification here
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -159,15 +197,26 @@ const TemplateModal: React.FC<TemplateModalProps> = ({ template, isOpen, onClose
                 <button
                   className="px-6 py-3 rounded-full text-white hover:bg-white/10 transition-colors"
                   onClick={onClose}
+                  disabled={isLoading}
                 >
                   Cancel
                 </button>
                 <button
-                  className="px-8 py-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition-colors flex items-center"
-                  onClick={() => onSelect(template)}
+                  className={`px-8 py-3 ${isLoading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} rounded-full text-white transition-colors flex items-center`}
+                  onClick={handleTemplateSelect}
+                  disabled={isLoading}
                 >
-                  <Check className="mr-2 h-5 w-5" />
-                  Select This Template
+                  {isLoading ? (
+                    <>
+                      <span className="animate-spin mr-2 h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
+                      Updating...
+                    </>
+                  ) : (
+                    <>
+                      <Check className="mr-2 h-5 w-5" />
+                      Select This Template
+                    </>
+                  )}
                 </button>
               </div>
             </motion.div>
