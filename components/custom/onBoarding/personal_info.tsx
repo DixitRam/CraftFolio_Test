@@ -286,10 +286,10 @@ export default function ProfileForm({ onComplete }: FormProps) {
 
         <Button 
           type="submit" 
-          className="w-full md:w-auto"
+          className="w-full bg-custom-primary text-white hover:bg-custom-primary/90"
           disabled={isLoading}
         >
-          {isLoading ? 'Saving...' : 'Save Profile'}
+          {isLoading ? 'Saving...' : 'Next'}
         </Button>
       </form>
     </Form>
