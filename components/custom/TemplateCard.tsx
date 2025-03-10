@@ -11,6 +11,7 @@ interface TemplateCardProps {
 const TemplateCard: React.FC<TemplateCardProps> = ({ template, onClick }) => {
   return (
     <motion.div
+    key={template.id}
       className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group"
       whileHover={{ y: -5 }}
       transition={{ duration: 0.3 }}
