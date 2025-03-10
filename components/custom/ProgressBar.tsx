@@ -71,4 +71,4 @@ export default function ProgressBar({ currentStep }: ProgressBarProps) {
       </div>
     </div>
   );
-} 
+}

@@ -12,7 +12,7 @@ export default function Page({userDetails}: {userDetails: any}) {
   const { name, location, tagline, cvURL, contact, skills } = userDetails
 
   return (
-    <div className="app" id="app">
+    <div className="app m-0" id="app">
       <Navbar />
       <Home name={name} location={location} tagline={tagline} cvURL={cvURL} contact={contact} />
       <Skills skills={skills} />
