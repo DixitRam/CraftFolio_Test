@@ -5,7 +5,7 @@ import { CiImageOn } from "react-icons/ci";
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { BsPersonBoundingBox } from "react-icons/bs";
-
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -21,6 +21,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { toast } from 'sonner'
 import { useState } from 'react'
+import { auth } from '@clerk/nextjs/server';
+import { useUser } from "@clerk/nextjs"; // ✅ Add this line
 
 interface FormProps {
   onComplete: () => void;
@@ -90,6 +92,20 @@ export default function ProfileForm({ onComplete }: FormProps) {
     }
   })
 
+  
+  const { isLoaded, user } = useUser(); // Ensure we check if user data is loaded
+
+  useEffect(() => {
+    if (isLoaded && user?.primaryEmailAddress?.emailAddress) {
+      const extractedUsername = user.primaryEmailAddress.emailAddress.split("@")[0]; // ✅ Access `.emailAddress`
+      form.setValue("username", extractedUsername);
+      const extractedProfilePicture = user.imageUrl;
+      form.setValue("profile_picture",extractedProfilePicture)
+    }
+  }, [isLoaded, user, form]);
+  
+  
+
   const onSubmit = async (data: FormData) => {
     try {
       setIsLoading(true);
@@ -138,28 +154,28 @@ export default function ProfileForm({ onComplete }: FormProps) {
             render={({ field }) => (
               <FormItem className="flex-1">
                 <FormControl>
-                  <Input placeholder="Profile Picture URL" {...field} className="w-full" />
+                  <Input type="hidden" placeholder="Profile Picture URL" {...field} className="w-full" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-
+        <FormField
+          
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input type="hidden" placeholder="Username" {...field}  />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-base">Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="Username" {...field} className="w-full" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+       
           <FormField
             control={form.control}
             name="name"
