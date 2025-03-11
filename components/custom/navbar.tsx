@@ -71,7 +71,7 @@ export default function Navbar() {
           </SignedIn>
           </span>
         </div>
-      </nav>00359e
+      </nav>
     </>
   )
 
