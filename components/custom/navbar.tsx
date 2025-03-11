@@ -32,7 +32,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-3">
           <FaLayerGroup className=" text-blue-700 text-2xl" />
 
-          <a href="/" className="text-xl font-bold text-slate-800">PortiQue</a>
+          <a href="/" className="text-xl font-bold text-slate-800">Portique</a>
         </div>            <div className="space-x-6 mr-3 flex md:flex-row items-center ">
           <Link href="/" className={
             clsx('text-black-500',
@@ -55,7 +55,7 @@ export default function Navbar() {
 
 
           <SignedOut   >
-            <SignInButton   >
+            <SignInButton forceRedirectUrl="/onboarding"  >
               <Button className="bg-custom-primary  hover:bg-blue-700">
                 Get Started
               </Button>
