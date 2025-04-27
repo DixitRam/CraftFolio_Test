@@ -1,13 +1,6 @@
 // Icon mapping configuration
 export const iconMapping = {
-  // Languages
-  javascript: { lib: "fa", icon: "FaJs" },
-  python: { lib: "fa", icon: "FaPython" },
-  java: { lib: "fa", icon: "FaJava" },
-  kotlin: { lib: "si", icon: "SiKotlin" },
-  go: { lib: "si", icon: "SiGo" },
-  bash: { lib: "si", icon: "SiBash" },
-  php: { lib: "fa", icon: "FaPhp" },
+
 
   // Frontend
   react: { lib: "fa", icon: "FaReact" },
@@ -30,6 +23,14 @@ export const iconMapping = {
   mysql: { lib: "si", icon: "SiMysql" },
   redis: { lib: "si", icon: "SiRedis" },
   elasticsearch: { lib: "si", icon: "SiElasticsearch" },
+  // Languages
+  javascript: { lib: "fa", icon: "FaJs" },
+  python: { lib: "fa", icon: "FaPython" },
+  java: { lib: "fa", icon: "FaJava" },
+  kotlin: { lib: "si", icon: "SiKotlin" },
+  go: { lib: "si", icon: "SiGo" },
+  bash: { lib: "si", icon: "SiBash" },
+  php: { lib: "fa", icon: "FaPhp" },
 
   // DevOps & Tools
   git: { lib: "fa", icon: "FaGit" },

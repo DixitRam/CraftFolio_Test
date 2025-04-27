@@ -1,5 +1,5 @@
 "use client"
-
+import { redirect } from 'next/navigation'
 import { Form } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, useFieldArray } from "react-hook-form"
@@ -36,8 +36,9 @@ const educationSchema = z.object({
 type FormData = z.infer<typeof educationSchema>;
 
 interface FormProps {
-  onComplete: () => void;
-}
+  onComplete(): void;
+  }
+
 
 export default function EducationForm({ onComplete }: FormProps) {
   const [isLoading, setIsLoading] = useState(false);
@@ -77,7 +78,7 @@ export default function EducationForm({ onComplete }: FormProps) {
       }
 
       toast.success('Education details saved successfully!');
-      onComplete();
+      window.location.href="/"
       
     } catch (error) {
       toast.error('Failed to save education details. Please try again.');

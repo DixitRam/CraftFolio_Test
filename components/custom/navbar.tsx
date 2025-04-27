@@ -10,6 +10,8 @@ import link from "next/link"
 import { AiTwotoneEdit } from "react-icons/ai";
 import { PiLinkBold } from "react-icons/pi";
 import { FaLink } from "react-icons/fa";
+import { ImEmbed2 } from "react-icons/im";
+
 
 
 
@@ -42,13 +44,7 @@ export default function Navbar() {
             )
           }>Templates</Link>
 
-          <Link href="/community" className={
-            clsx('text-gray-500',
-              {
-                'text-custom-primary   ': pathName === "/community"
-              }
-            )
-          }>Community</Link>
+      
 
 
 
@@ -66,6 +62,7 @@ export default function Navbar() {
               <UserButton.MenuItems>
                 <UserButton.Link href="/edit" label="Edit Details" labelIcon ={<AiTwotoneEdit />} />
                 <UserButton.Link href="/customUrl" label="Custom URL" labelIcon ={<FaLink />} />
+                <UserButton.Link href="/embedCode" label="Embed Code" labelIcon ={<ImEmbed2  />} />
               </UserButton.MenuItems>
                   </UserButton>
           </SignedIn>

@@ -32,13 +32,7 @@ export default  function Navbar() {
                )
               }>Templates</Link>
            
-                 <Link href="/community" className={
-                  clsx('text-gray-500',
-                    {
-                      'text-custom-primary   ':pathName==="/community"
-                    }
-                  )
-                 }>Community</Link>
+               
                  
 
                

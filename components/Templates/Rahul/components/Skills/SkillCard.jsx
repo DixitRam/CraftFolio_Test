@@ -23,8 +23,8 @@ const SkillCard = ({ item }) => {
 
         // If no match found, use default database icon
         if (!iconInfo) {
-          const { FaDatabase } = await import("react-icons/fa")
-          setIcon(() => FaDatabase)
+          const { FaCode } = await import("react-icons/fa")
+          setIcon(() => FaCode)
           return
         }
 

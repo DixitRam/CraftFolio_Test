@@ -89,6 +89,8 @@ export default function EditProfileForm({ userId }: { userId: string }) {
     const fetchData = async () => {
       try {
         setIsFetching(true);
+        console.log('Fetching profile data...');
+        console.log('userId:', userId);
         const response = await fetch(`/api/profile/${userId}`);
         const data = await response.json();
 
